@@ -25,3 +25,20 @@ select = ["E", "F", "I"]
 
 [tool.ruff.lint.per-file-ignores]
 "config/settings.py" = ["E501"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings"
+python_files = ["test_*.py"]
+
+[tool.coverage.run]
+source = ["."]
+omit = [
+    "*/migrations/*",
+    "*/tests/*",
+    "manage.py",
+    "config/settings.py",
+]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
