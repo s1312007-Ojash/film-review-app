@@ -1,0 +1,37 @@
+schema: spec-driven
+
+# Project context (optional)
+# This is shown to AI when creating artifacts.
+context: |
+  Project: Film Review web application (browse films, read/write reviews,
+  0-5 star ratings, save favorites). See AGENTS.md for the fuller, canonical
+  guidance — this is a summary.
+
+  Tech stack: Django 6, Python 3.14, SQLite (dev). Dependencies and the venv
+  are managed with `uv`; the lockfile (uv.lock) is committed. Run everything
+  through `uv run ...` rather than invoking python/pip directly.
+
+  Tooling & conventions:
+  - ruff for lint + format: line length 88, target py314, rules E/F/I.
+  - Tests use pytest with pytest-django; settings module is config.settings.
+    Tests touching the database must use the @pytest.mark.django_db decorator.
+  - Commands: `uv run python manage.py runserver|migrate|makemigrations`,
+    `uv run pytest --cov`, `uv run ruff check .`, `uv run ruff format .`.
+
+  Current state: a fresh skeleton. Only the `config/` Django project and
+  Django's built-in apps exist; the domain apps (films, reviews, accounts)
+  are not built yet. Implementing a feature usually means creating a new
+  Django app, adding it to INSTALLED_APPS and config/urls.py, and writing
+  migrations.
+
+# Per-artifact rules (optional)
+rules:
+  proposal:
+    - Keep proposals concise (1-2 pages); focus on the "why", not the "how".
+    - Note when a change is documentation/config-only with no runtime impact.
+  design:
+    - Only include design decisions that aren't obvious from the proposal.
+    - Record alternatives considered and why they were rejected.
+  tasks:
+    - Express commands against the `uv run` surface (no bare python/pip).
+    - Each task must be independently verifiable in a single session.
