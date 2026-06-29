@@ -31,3 +31,4 @@ uv run ruff format --check .              # formatting check (drop --check to ap
 
 - Ruff: line length 88, target py314, rules `E`/`F`/`I` (includes import sorting). `config/settings.py` is exempt from `E501`.
 - `db.sqlite3`, `.coverage`, and `.venv` are gitignored; `uv.lock` is committed for reproducible installs.
+- When implementing models or functions, always generate corresponding unit tests in the same change. A feature is not complete without tests. DB-touching tests use the `@pytest.mark.django_db` decorator.
