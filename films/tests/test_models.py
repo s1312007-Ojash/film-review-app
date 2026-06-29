@@ -105,3 +105,18 @@ def test_deleting_movie_cascades_to_reviews_and_favorites(user, movie):
 
     assert Review.objects.count() == 0
     assert Favorite.objects.count() == 0
+
+
+@pytest.mark.django_db
+def test_different_users_can_favorite_same_movie(user, other_user, movie):
+    Favorite.objects.create(user=user, movie=movie)
+    Favorite.objects.create(user=other_user, movie=movie)
+    assert movie.favorites.count() == 2
+
+
+@pytest.mark.django_db
+def test_same_user_can_favorite_different_movies(user, movie):
+    other_movie = Movie.objects.create(title="Interstellar", description="Space.")
+    Favorite.objects.create(user=user, movie=movie)
+    Favorite.objects.create(user=user, movie=other_movie)
+    assert user.favorites.count() == 2
